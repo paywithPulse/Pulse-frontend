@@ -1,5 +1,5 @@
-import React from 'react';
-import { CreditCard } from 'lucide-react';
+// import React from 'react';
+import { CreditCard } from "lucide-react";
 
 const Header = () => {
   return (
@@ -15,24 +15,24 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
-              Features
+              Home
             </a>
             <a href="#security" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
-              Security
-            </a>
-            <a href="#about" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
               About
             </a>
-          </nav>
+            <a href="#about" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
+              Feature
+            </a>
+          </nav> */}
 
           {/* CTA */}
           <div className="flex items-center space-x-4">
-            <button className="hidden sm:block px-6 py-2 text-text-muted hover:text-electric-teal transition-colors duration-300">
+            {/* <button className="hidden sm:block px-6 py-2 text-text-muted hover:text-electric-teal transition-colors duration-300">
               Sign In
-            </button>
-            <button className="px-6 py-2 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105">
+            </button> */}
+            <button className="px-6 py-2 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105 inline-block">
               Get Started
             </button>
           </div>

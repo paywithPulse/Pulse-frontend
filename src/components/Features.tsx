@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Wallet, Repeat, CreditCard, TrendingUp, Shield, Zap } from 'lucide-react';
 
 const Features = () => {
@@ -39,7 +39,7 @@ const Features = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div
               key={feature.title}
               className="group relative"

@@ -1,8 +1,7 @@
-import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
-import FloatingButton from './components/FloatingButton';
+// import FloatingButton from './components/FloatingButton';
 import Footer from './components/Footer';
 
 function App() {
@@ -11,10 +10,10 @@ function App() {
       <Header />
       <Hero />
       <Features />
-      <FloatingButton />
+      {/* <FloatingButton /> */}
       <Footer />
     </div>
   );
 }
 
-export default App;
+export default App; 
