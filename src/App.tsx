@@ -1,19 +1,26 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-// import FloatingButton from './components/FloatingButton';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Contact from './pages/OffRamp';
 
 function App() {
   return (
-    <div className="min-h-screen bg-jet-black font-inter">
-      <Header />
-      <Hero />
-      <Features />
-      {/* <FloatingButton /> */}
-      <Footer />
-    </div>
+    <Router>
+      <div className='min-h-screen bg-jet-black font-inter flex flex-col'>
+        <Header />
+
+        <main>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/offramp' element={<Contact />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
-export default App; 
+export default App;
