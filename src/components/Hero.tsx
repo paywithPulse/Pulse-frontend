@@ -150,7 +150,10 @@ const Hero = () => {
                       {/* Action Buttons */}
                       <div className='space-y-3'>
                         <button
-                          onClick={() => navigate('/offramp')}
+                          onClick={() => {
+                            setIsOpen(false);
+                            navigate('/offramp');
+                          }}
                           className='w-full px-6 py-4 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105'
                         >
                           Start Off-Ramp
@@ -175,89 +178,99 @@ const Hero = () => {
           </div>
 
           {/* Right Content - 3D Card Mockup */}
-          <div className='flex-1 flex justify-center lg:justify-end'>
-            <div className='relative'>
+          <div className='relative flex justify-center items-center'>
+            <div
+              className={`relative w-96 h-52 sm:h-56 rounded-2xl cursor-pointer transition-transform duration-700
+              ${isCardFlipped ? 'rotate-y-180' : ''}
+            `}
+              style={{
+                perspective: '1200px',
+                transformStyle: 'preserve-3d',
+              }}
+              onMouseEnter={() => setIsCardFlipped(true)}
+              onMouseLeave={() => setIsCardFlipped(false)}
+            >
+              {/* Card Front */}
               <div
-                className={`relative w-80 h-48 cursor-pointer transform-gpu transition-transform duration-700 ${
-                  isCardFlipped ? 'rotate-y-180' : ''
-                }`}
-                onMouseEnter={() => setIsCardFlipped(true)}
-                onMouseLeave={() => setIsCardFlipped(false)}
-                style={{ transformStyle: 'preserve-3d' }}
+                className='absolute inset-0 w-full h-full rounded-2xl backface-hidden overflow-hidden z-20'
+                style={{
+                  boxShadow:
+                    '0 2px 28px 0 rgba(22, 168, 255, 0.14), 0 1.5px 0 0 #1C1C1C',
+                  background:
+                    'linear-gradient(120deg, #1C1C1C 60%, #0B0F12 100%)',
+                  border: '1.5px solid #1cd7fa44',
+                }}
               >
-                {/* Card Front */}
-                <div className='absolute inset-0 w-full h-full backface-hidden'>
-                  <div className='w-full h-full bg-gradient-to-br from-graphite via-graphite to-jet-black rounded-2xl shadow-2xl border border-electric-teal/20 p-6 animate-float'>
-                    <div className='flex justify-between items-start mb-8'>
-                      <div className='text-text-primary font-bold text-xl'>
-                        PULSE
-                      </div>
-                      <CreditCard className='w-8 h-8 text-electric-teal' />
-                    </div>
+                <div className='relative p-6 h-full flex flex-col justify-between z-20'>
+                  <div className='flex justify-between items-start'>
+                    <span className='text-text-primary font-bold text-xl tracking-wide'>
+                      PULSE
+                    </span>
+                    <CreditCard className='w-8 h-8 text-electric-teal' />
+                  </div>
 
-                    <div className='mb-8'>
-                      <div className='w-12 h-8 bg-gradient-to-r from-electric-teal/30 to-neon-blue/30 rounded mb-2'></div>
-                    </div>
+                  <div className='w-14 h-8 bg-gradient-to-r from-electric-teal/30 to-neon-blue/30 rounded mb-2 mt-8'></div>
 
-                    <div className='flex justify-between items-end'>
-                      <div>
-                        <div className='text-text-muted text-xs mb-1'>
-                          Card Holder
-                        </div>
-                        <div className='text-text-primary text-sm font-semibold'>
-                          EMMY.PULSE
-                        </div>
-                      </div>
-                      <div>
-                        <div className='text-text-primary text-sm font-mono'>
-                          •••• •••• •••• 1234
-                        </div>
+                  <div className='flex justify-between items-end text-xs'>
+                    <div>
+                      <div className='text-text-muted mb-1'>Card Holder</div>
+                      <div className='text-text-primary font-semibold text-sm'>
+                        EMMY.PULSE
                       </div>
                     </div>
-
-                    <div className='flex justify-between items-end mt-4'>
-                      <div>
-                        <div className='text-text-muted text-xs mb-1'>
-                          Valid Thru
-                        </div>
-                        <div className='text-text-primary text-sm'>12/28</div>
-                      </div>
-                      <div className='text-right'>
-                        <div className='text-text-muted text-xs mb-1'>Exp</div>
-                        <div className='text-text-primary text-sm'>12/28</div>
+                    <div>
+                      <div className='text-text-primary text-base font-mono'>
+                        •••• •••• •••• 1234
                       </div>
                     </div>
                   </div>
+
+                  <div className='flex justify-between items-end mt-2 text-xs'>
+                    <div>
+                      <div className='text-text-muted mb-1'>Valid Thru</div>
+                      <div className='text-text-primary text-sm'>12/28</div>
+                    </div>
+                    <div className='text-right'>
+                      <div className='text-text-muted mb-1'>Exp</div>
+                      <div className='text-text-primary text-sm'>12/28</div>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
-                {/* Card Back */}
-                <div className='absolute inset-0 w-full h-full backface-hidden rotate-y-180'>
-                  <div className='w-full h-full bg-gradient-to-br from-jet-black via-graphite to-graphite rounded-2xl shadow-2xl border border-neon-blue/20 p-6'>
-                    {/* Magnetic stripe */}
-                    <div className='h-12 bg-jet-black rounded mb-6 mt-4'></div>
+              {/* Card Back */}
+              <div
+                className='absolute inset-0 w-full h-full rounded-2xl backface-hidden rotate-y-180 overflow-hidden z-10'
+                style={{
+                  boxShadow:
+                    '0 2px 28px 0 rgba(44, 169, 255, 0.12), 0 1.5px 0 0 #1C1C1C',
+                  background:
+                    'linear-gradient(120deg, #0B0F12 60%, #1C1C1C 100%)',
+                  border: '1.5px solid #3b82f620',
+                }}
+              >
+                <div className='relative p-6 h-full flex flex-col justify-between'>
+                  <div className='h-10 bg-jet-black rounded mt-4 mb-6' />
 
-                    {/* Signature strip */}
-                    <div className='bg-text-primary h-8 rounded mb-4 flex items-center px-3'>
-                      <div className='text-jet-black text-xs italic'>
-                        Emmy.pulse
+                  <div className='bg-text-primary h-7 rounded mb-4 flex items-center px-3'>
+                    <span className='text-jet-black text-xs italic'>
+                      Emmy.pulse
+                    </span>
+                  </div>
+
+                  <div className='flex justify-between items-end text-xs'>
+                    <div>
+                      <div className='text-text-muted mb-1'>CVV</div>
+                      <div className='text-text-primary text-sm font-mono'>
+                        •••
                       </div>
                     </div>
-
-                    {/* CVV and info */}
-                    <div className='flex justify-between items-end'>
-                      <div>
-                        <div className='text-text-muted text-xs mb-1'>CVV</div>
-                        <div className='text-text-primary text-sm font-mono'>
-                          •••
-                        </div>
+                    <div className='text-right'>
+                      <div className='text-text-muted'>
+                        For customer service call
                       </div>
-                      <div className='text-right'>
-                        <div className='text-text-muted text-xs'>
-                          For customer service call
-                        </div>
-                        <div className='text-text-primary text-xs'>
-                          1-800-PULSE-24
-                        </div>
+                      <div className='text-text-primary text-xs'>
+                        1-800-PULSE-24
                       </div>
                     </div>
                   </div>

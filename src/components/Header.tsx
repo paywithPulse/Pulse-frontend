@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CreditCard } from 'lucide-react';
 import { ArrowUpDown, X } from 'lucide-react';
 
@@ -12,12 +13,16 @@ const Header = () => {
       <div className='container mx-auto px-6 py-4'>
         <div className='flex items-center justify-between'>
           {/* Logo */}
-          <div className='flex items-center space-x-3'>
-            <div className='w-8 h-8 bg-gradient-to-r from-neon-blue to-electric-teal rounded-lg flex items-center justify-center'>
-              <CreditCard className='w-5 h-5 text-text-primary' />
+          <Link to={'/'}>
+            <div className='flex items-center space-x-3'>
+              <div className='w-8 h-8 bg-gradient-to-r from-neon-blue to-electric-teal rounded-lg flex items-center justify-center'>
+                <CreditCard className='w-5 h-5 text-text-primary' />
+              </div>
+              <span className='text-2xl font-bold text-text-primary'>
+                PULSE
+              </span>
             </div>
-            <span className='text-2xl font-bold text-text-primary'>PULSE</span>
-          </div>
+          </Link>
 
           {/* Navigation */}
           {/* <nav className="hidden md:flex items-center space-x-8">
@@ -73,7 +78,10 @@ const Header = () => {
                     {/* Action Buttons */}
                     <div className='space-y-3'>
                       <button
-                        onClick={() => navigate('/offramp')}
+                        onClick={() => {
+                          setIsOpen(false);
+                          navigate('/offramp');
+                        }}
                         className='w-full px-6 py-4 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105'
                       >
                         Start Off-Ramp
