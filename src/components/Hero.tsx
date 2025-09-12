@@ -26,12 +26,13 @@ const Hero = () => {
       image: dai,
       position: 'bottom-32 left-16',
       delay: '2s',
-       size: "w-24 h-24", // make USDT larger
+      size: "w-24 h-24", // make USDT larger
     },
     {
       image: busd,
       position: "bottom-20 right-24",
       delay: "3s",
+      size: "w-20 h-20", // make USDT larger
     },
   ];
 
