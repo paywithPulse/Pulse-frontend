@@ -27,13 +27,15 @@ const Hero = () => {
     },
     {
       image: dai,
-      position: 'bottom-32 left-16',
-      delay: '2s',
+      position: "bottom-32 left-16",
+      delay: "2s",
+       size: "w-24 h-24", // make USDT larger
     },
     {
       image: busd,
-      position: 'bottom-20 right-24',
-      delay: '3s',
+      position: "bottom-20 right-24",
+      delay: "3s",
+      size: "w-20 h-20", // make USDT larger
     },
   ];
 
@@ -44,33 +46,37 @@ const Hero = () => {
         {/* Background gradient */}
         <div className='absolute inset-0 bg-gradient-to-br from-jet-black via-graphite/20 to-jet-black'></div>
 
-        {/* Floating stablecoins */}
-        {/* Floating stablecoins */}
-        {stablecoins.map((coin) => (
+      {/* Floating stablecoins */}
+      {/* Floating stablecoins */}
+      {stablecoins.map((coin) => (
+        <div
+          key={coin.image}
+          className={`absolute ${coin.position} ${
+            coin.size
+          } animate-drift transition-all duration-300 cursor-pointer ${
+            hoveredCoin === coin.image
+              ? "opacity-80 scale-125"
+              : "opacity-30 hover:opacity-60"
+          }`}
+          style={{ animationDelay: coin.delay }}
+          onMouseEnter={() => setHoveredCoin(coin.image)}
+          onMouseLeave={() => setHoveredCoin(null)}
+        >
           <div
-            key={coin.image}
-            className={`absolute ${
-              coin.position
-            } animate-drift transition-all duration-300 cursor-pointer ${
+            className={`w-20 h-20 rounded-full flex items-center justify-center bg-transparent ${
               hoveredCoin === coin.image
-                ? 'opacity-80 scale-125'
-                : 'opacity-30 hover:opacity-60'
+                ? "shadow-2xl shadow-electric-teal/50"
+                : ""
             }`}
-            style={{ animationDelay: coin.delay }}
-            onMouseEnter={() => setHoveredCoin(coin.image)}
-            onMouseLeave={() => setHoveredCoin(null)}
           >
-            <div
-              className={`w-20 h-20 rounded-full flex items-center justify-center bg-transparent ${
-                hoveredCoin === coin.image
-                  ? 'shadow-2xl shadow-electric-teal/50'
-                  : ''
-              }`}
-            >
-              <img src={coin.image} alt={coin.image} className='w-16 h-16' />
-            </div>
+            <img
+              src={coin.image}
+              alt={coin.image}
+              className={`${coin.size || "w-16 h-16"}`}
+            />
           </div>
-        ))}
+        </div>
+      ))}
 
         <div className='container mx-auto px-6 py-20 relative z-10'>
           <div className='flex flex-col lg:flex-row items-center justify-between gap-12'>
