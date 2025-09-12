@@ -44,7 +44,7 @@ const Header = () => {
             </button> */}
             <button
               onClick={() => setIsOpen(true)}
-              className='px-6 py-2 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105 inline-block'
+              className="px-6 py-2 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105 inline-block"
             >
               Get Started
             </button>

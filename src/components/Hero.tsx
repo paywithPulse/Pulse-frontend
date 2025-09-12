@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, ArrowRight, Zap, Smartphone } from 'lucide-react';
 import { ArrowUpDown, X } from 'lucide-react';
+import usdc from '/usdc.jpg';
+import usdt from '/usdt.jpg';
+import dai from '/dai.jpg';
+import busd from '/busd.jpg';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -11,28 +15,24 @@ const Hero = () => {
 
   const stablecoins = [
     {
-      name: 'USDC',
+      image: usdc,
       position: 'top-20 left-20',
       delay: '0s',
-      color: 'from-blue-500 to-blue-600',
     },
     {
-      name: 'USDT',
+      image: usdt,
       position: 'top-40 right-16',
       delay: '1s',
-      color: 'from-green-500 to-green-600',
     },
     {
-      name: 'DAI',
+      image: dai,
       position: 'bottom-32 left-16',
       delay: '2s',
-      color: 'from-yellow-500 to-orange-500',
     },
     {
-      name: 'BUSD',
+      image: busd,
       position: 'bottom-20 right-24',
       delay: '3s',
-      color: 'from-yellow-400 to-yellow-500',
     },
   ];
 
@@ -42,30 +42,29 @@ const Hero = () => {
       <div className='absolute inset-0 bg-gradient-to-br from-jet-black via-graphite/20 to-jet-black'></div>
 
       {/* Floating stablecoins */}
+      {/* Floating stablecoins */}
       {stablecoins.map((coin) => (
         <div
-          key={coin.name}
+          key={coin.image}
           className={`absolute ${
             coin.position
           } animate-drift transition-all duration-300 cursor-pointer ${
-            hoveredCoin === coin.name
-              ? 'opacity-80 scale-110'
+            hoveredCoin === coin.image
+              ? 'opacity-80 scale-125'
               : 'opacity-30 hover:opacity-60'
           }`}
           style={{ animationDelay: coin.delay }}
-          onMouseEnter={() => setHoveredCoin(coin.name)}
+          onMouseEnter={() => setHoveredCoin(coin.image)}
           onMouseLeave={() => setHoveredCoin(null)}
         >
           <div
-            className={`w-12 h-12 bg-gradient-to-br ${
-              coin.color
-            } rounded-full flex items-center justify-center text-text-primary text-xs font-bold shadow-lg ${
-              hoveredCoin === coin.name
+            className={`w-20 h-20 rounded-full flex items-center justify-center bg-transparent ${
+              hoveredCoin === coin.image
                 ? 'shadow-2xl shadow-electric-teal/50'
                 : ''
             }`}
           >
-            {coin.name}
+            <img src={coin.image} alt={coin.image} className='w-16 h-16' />
           </div>
         </div>
       ))}
@@ -120,7 +119,6 @@ const Hero = () => {
               </button>
 
               {/* Modal Overlay */}
-
               {isOpen && (
                 <div className='fixed inset-0 bg-jet-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6'>
                   <div className='bg-graphite/90 backdrop-blur-lg rounded-2xl border border-electric-teal/30 p-8 max-w-md w-full transform animate-in slide-in-from-bottom-5 duration-300'>
