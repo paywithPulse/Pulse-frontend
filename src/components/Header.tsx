@@ -17,19 +17,6 @@ const Header = () => {
             <span className="text-2xl font-bold text-text-primary">PULSE</span>
           </div>
 
-          {/* Navigation */}
-          {/* <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
-              Home
-            </a>
-            <a href="#security" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
-              About
-            </a>
-            <a href="#about" className="text-text-muted hover:text-electric-teal transition-colors duration-300">
-              Feature
-            </a>
-          </nav> */}
-
           {/* CTA */}
           <div className="flex items-center space-x-4">
             {/* <button className="hidden sm:block px-6 py-2 text-text-muted hover:text-electric-teal transition-colors duration-300">

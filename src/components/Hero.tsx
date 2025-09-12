@@ -26,11 +26,13 @@ const Hero = () => {
       image: dai,
       position: "bottom-32 left-16",
       delay: "2s",
+       size: "w-24 h-24", // make USDT larger
     },
     {
       image: busd,
       position: "bottom-20 right-24",
       delay: "3s",
+      size: "w-20 h-20", // make USDT larger
     },
   ];
 
@@ -44,8 +46,8 @@ const Hero = () => {
       {stablecoins.map((coin) => (
         <div
           key={coin.image}
-          className={`absolute ${
-            coin.position
+          className={`absolute ${coin.position} ${
+            coin.size
           } animate-drift transition-all duration-300 cursor-pointer ${
             hoveredCoin === coin.image
               ? "opacity-80 scale-125"
@@ -62,7 +64,11 @@ const Hero = () => {
                 : ""
             }`}
           >
-            <img src={coin.image} alt={coin.image} className="w-16 h-16" />
+            <img
+              src={coin.image}
+              alt={coin.image}
+              className={`${coin.size || "w-16 h-16"}`}
+            />
           </div>
         </div>
       ))}
