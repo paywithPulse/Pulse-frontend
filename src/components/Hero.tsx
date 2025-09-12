@@ -27,9 +27,9 @@ const Hero = () => {
     },
     {
       image: dai,
-      position: "bottom-32 left-16",
-      delay: "2s",
-       size: "w-24 h-24", // make USDT larger
+      position: 'bottom-32 left-16',
+      delay: '2s',
+      size: "w-24 h-24", // make USDT larger
     },
     {
       image: busd,
