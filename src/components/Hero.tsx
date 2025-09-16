@@ -29,13 +29,13 @@ const Hero = () => {
       image: dai,
       position: 'bottom-32 left-16',
       delay: '2s',
-      size: "w-24 h-24", // make USDT larger
+      size: "w-30 h-30", // make USDT larger
     },
     {
       image: busd,
       position: "bottom-20 right-24",
       delay: "3s",
-      size: "w-20 h-20", // make USDT larger
+      size: "w-35 h-35", // make USDT larger
     },
   ];
 
@@ -77,6 +77,30 @@ const Hero = () => {
           </div>
         </div>
       ))}
+        {/* Floating stablecoins */}
+        {stablecoins.map((coin) => (
+          <div
+            key={coin.image}
+            className={`absolute ${coin.position} animate-drift transition-all duration-300 cursor-pointer ${
+              hoveredCoin === coin.image
+                ? 'opacity-80 scale-125'
+                : 'opacity-30 hover:opacity-60'
+            }`}
+            style={{ animationDelay: coin.delay }}
+            onMouseEnter={() => setHoveredCoin(coin.image)}
+            onMouseLeave={() => setHoveredCoin(null)}
+          >
+            <div
+              className={`w-20 h-20 rounded-full flex items-center justify-center bg-transparent ${
+                hoveredCoin === coin.image
+                  ? 'shadow-2xl shadow-electric-teal/50'
+                  : ''
+              }`}
+            >
+              <img src={coin.image} alt={coin.image} className={`w-16 h-16 ${coin.size}`} />
+            </div>
+          </div>
+        ))}
 
         <div className='container mx-auto px-6 py-20 relative z-10'>
           <div className='flex flex-col lg:flex-row items-center justify-between gap-12'>
