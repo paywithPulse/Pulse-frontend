@@ -9,10 +9,10 @@ import dai from '/dai.jpg';
 import busd from '/busd.jpg';
 
 const Hero = () => {
-  const navigate = useNavigate();
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [hoveredCoin, setHoveredCoin] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const stablecoins = [
     {
@@ -29,13 +29,13 @@ const Hero = () => {
       image: dai,
       position: 'bottom-32 left-16',
       delay: '2s',
-      size: "w-30 h-30", // make USDT larger
+      size: 'w-24 h-24', // make USDT larger
     },
     {
       image: busd,
-      position: "bottom-20 right-24",
-      delay: "3s",
-      size: "w-35 h-35", // make USDT larger
+      position: 'bottom-20 right-24',
+      delay: '3s',
+      size: 'w-20 h-20', // make USDT larger
     },
   ];
 
@@ -46,37 +46,6 @@ const Hero = () => {
         {/* Background gradient */}
         <div className='absolute inset-0 bg-gradient-to-br from-jet-black via-graphite/20 to-jet-black'></div>
 
-      {/* Floating stablecoins */}
-      {/* Floating stablecoins */}
-      {stablecoins.map((coin) => (
-        <div
-          key={coin.image}
-          className={`absolute ${coin.position} ${
-            coin.size
-          } animate-drift transition-all duration-300 cursor-pointer ${
-            hoveredCoin === coin.image
-              ? "opacity-80 scale-125"
-              : "opacity-30 hover:opacity-60"
-          }`}
-          style={{ animationDelay: coin.delay }}
-          onMouseEnter={() => setHoveredCoin(coin.image)}
-          onMouseLeave={() => setHoveredCoin(null)}
-        >
-          <div
-            className={`w-20 h-20 rounded-full flex items-center justify-center bg-transparent ${
-              hoveredCoin === coin.image
-                ? "shadow-2xl shadow-electric-teal/50"
-                : ""
-            }`}
-          >
-            <img
-              src={coin.image}
-              alt={coin.image}
-              className={`${coin.size || "w-16 h-16"}`}
-            />
-          </div>
-        </div>
-      ))}
         {/* Floating stablecoins */}
         {stablecoins.map((coin) => (
           <div
@@ -111,32 +80,31 @@ const Hero = () => {
                   <Zap className='w-4 h-4 text-electric-teal mr-2' />
                   <span className='text-sm text-text-muted'>Now in Beta</span>
                 </div>
+              </div>
 
-                <h1 className='text-5xl lg:text-7xl font-bold text-text-primary mb-6 leading-tight'>
-                  <span className='bg-gradient-to-r from-neon-blue to-electric-teal bg-clip-text text-transparent'>
-                    Bankless,
-                  </span>
-                  <br />
-                  <span className='bg-gradient-to-r from-electric-teal to-neon-blue bg-clip-text text-transparent'>
-                    Borderless,
-                  </span>
-                  <br />
-                  and Always On.
-                </h1>
+              <h1 className='text-5xl lg:text-7xl font-bold text-text-primary mb-6 leading-tight'>
+                <span className='bg-gradient-to-r from-neon-blue to-electric-teal bg-clip-text text-transparent'>
+                  Bankless,
+                </span>
+                <br />
+                <span className='bg-gradient-to-r from-electric-teal to-neon-blue bg-clip-text text-transparent'>
+                  Borderless,
+                </span>
+                <br />
+                and Always On.
+              </h1>
 
-                <p className='text-xl text-text-muted mb-8 leading-relaxed'>
-                  Experience the future of digital payments with Pulse.
-                  Seamlessly manage stablecoins and spend anywhere with our
-                  innovative card solution.
-                </p>
+              <p className='text-xl text-text-muted mb-8 leading-relaxed'>
+                Experience the future of digital payments with Pulse. Seamlessly manage
+                stablecoins and spend anywhere with our innovative card solution.
+              </p>
 
-                {/* Mobile App Coming Soon */}
-                <div className='inline-flex items-center px-4 py-2 rounded-full bg-electric-teal/10 border border-electric-teal/20 mb-8'>
-                  <Smartphone className='w-4 h-4 text-electric-teal mr-2' />
-                  <span className='text-sm text-electric-teal font-medium'>
-                    Mobile App Coming Soon
-                  </span>
-                </div>
+              {/* Mobile App Coming Soon */}
+              <div className='inline-flex items-center px-4 py-2 rounded-full bg-electric-teal/10 border border-electric-teal/20 mb-8'>
+                <Smartphone className='w-4 h-4 text-electric-teal mr-2' />
+                <span className='text-sm text-electric-teal font-medium'>
+                  Mobile App Coming Soon
+                </span>
               </div>
 
               {/* CTAs */}
@@ -151,17 +119,17 @@ const Hero = () => {
                   </span>
                 </button>
 
-                {/* Modal Overlay */}
-                {isOpen && (
-                  <div className='fixed inset-0 bg-jet-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6'>
-                    <div className='bg-graphite/90 backdrop-blur-lg rounded-2xl border border-electric-teal/30 p-8 max-w-md w-full transform animate-in slide-in-from-bottom-5 duration-300'>
-                      {/* Close Button */}
-                      <button
-                        onClick={() => setIsOpen(false)}
-                        className='absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors duration-200'
-                      >
-                        <X className='w-5 h-5' />
-                      </button>
+              {/* Modal Overlay */}
+              {isOpen && (
+                <div className='fixed inset-0 bg-jet-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6'>
+                  <div className='bg-graphite/90 backdrop-blur-lg rounded-2xl border border-electric-teal/30 p-8 max-w-md w-full transform animate-in slide-in-from-bottom-5 duration-300'>
+                    {/* Close Button */}
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className='absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors duration-200'
+                    >
+                      <X className='w-5 h-5' />
+                    </button>
 
                       {/* Content */}
                       <div className='text-center'>
@@ -178,17 +146,17 @@ const Hero = () => {
                           without creating a wallet.
                         </p>
 
-                        {/* Action Buttons */}
-                        <div className='space-y-3'>
-                          <button
-                            onClick={() => {
-                              setIsOpen(false);
-                              navigate('/offramp');
-                            }}
-                            className='w-full px-6 py-4 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105'
-                          >
-                            Start Off-Ramp
-                          </button>
+                      {/* Action Buttons */}
+                      <div className='space-y-3'>
+                        <button
+                          onClick={() => {
+                            setIsOpen(false);
+                            navigate('/offramp');
+                          }}
+                          className='w-full px-6 py-4 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105'
+                        >
+                          Start Off-Ramp
+                        </button>
 
                           <button
                             onClick={() => setIsOpen(false)}
@@ -211,9 +179,9 @@ const Hero = () => {
             {/* Right Content - 3D Card Mockup */}
             <div className='relative flex justify-center items-center'>
               <div
-                className={`relative w-96 h-52 sm:h-56 rounded-2xl cursor-pointer transition-transform duration-700
-                ${isCardFlipped ? 'rotate-y-180' : ''}
-            `}
+                className={`relative w-96 h-52 sm:h-56 rounded-2xl cursor-pointer transition-transform duration-700 ${
+                  isCardFlipped ? 'rotate-y-180' : ''
+                }`}
                 style={{
                   perspective: '1200px',
                   transformStyle: 'preserve-3d',
@@ -282,19 +250,15 @@ const Hero = () => {
                 >
                   <div className='relative p-6 h-full flex flex-col justify-between'>
                     <div className='h-10 bg-jet-black rounded mt-4 mb-6' />
-
                     <div className='bg-text-primary h-7 rounded mb-4 flex items-center px-3'>
                       <span className='text-jet-black text-xs italic'>
                         Emmy.pulse
                       </span>
                     </div>
-
                     <div className='flex justify-between items-end text-xs'>
                       <div>
                         <div className='text-text-muted mb-1'>CVV</div>
-                        <div className='text-text-primary text-sm font-mono'>
-                          •••
-                        </div>
+                        <div className='text-text-primary text-sm font-mono'>•••</div>
                       </div>
                       <div className='text-right'>
                         <div className='text-text-muted'>
@@ -311,6 +275,56 @@ const Hero = () => {
             </div>
           </div>
         </div>
+
+        {/* Modal Overlay */}
+        {isOpen && (
+          <div className='fixed inset-0 bg-jet-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6'>
+            <div className='bg-graphite/90 backdrop-blur-lg rounded-2xl border border-electric-teal/30 p-8 max-w-md w-full transform animate-in slide-in-from-bottom-5 duration-300 relative'>
+              {/* Close Button */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className='absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors duration-200'
+              >
+                <X className='w-5 h-5' />
+              </button>
+
+              {/* Modal Content */}
+              <div className='text-center'>
+                <div className='w-16 h-16 bg-gradient-to-r from-electric-teal to-neon-blue rounded-full flex items-center justify-center mx-auto mb-6'>
+                  <ArrowUpDown className='w-8 h-8 text-text-primary' />
+                </div>
+
+                <h3 className='text-2xl font-bold text-text-primary mb-4'>
+                  Quick Off-Ramp
+                </h3>
+
+                <p className='text-text-muted mb-8'>
+                  Convert your stablecoins to local currency instantly without creating a
+                  wallet.
+                </p>
+
+                <div className='space-y-3'>
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate('/offramp');
+                    }}
+                    className='w-full px-6 py-4 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 transform hover:scale-105'
+                  >
+                    Start Off-Ramp
+                  </button>
+
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className='w-full px-6 py-3 text-text-muted hover:text-text-primary transition-colors duration-200'
+                  >
+                    Maybe Later
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </>
   );
