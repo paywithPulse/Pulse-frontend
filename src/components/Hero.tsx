@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CreditCard, ArrowRight, Zap, Smartphone } from "lucide-react";
+import {
+  CreditCard,
+  ArrowRight,
+  Zap,
+  Smartphone,
+  CheckCircle,
+  Loader2,
+} from "lucide-react";
 import { ArrowUpDown, X } from "lucide-react";
 import Header from "./Header";
 import usdc from "/usdc.jpg";
@@ -8,14 +15,85 @@ import usdt from "/usdt.jpg";
 import dai from "/dai.jpg";
 import busd from "/busd.jpg";
 
+// Utility function for email validation (moved outside component)
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 const Hero = () => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [hoveredCoin, setHoveredCoin] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false); // Get Started Modal
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false); // Waitlist Modal
   const [email, setEmail] = useState(""); // Email input for waitlist
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [isValidEmailState, setIsValidEmailState] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
   const navigate = useNavigate();
+
+  // Handle email input changes with real-time validation
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+    setEmailError("");
+    setSubmitSuccess(false);
+
+    if (emailValue.trim()) {
+      if (isValidEmail(emailValue)) {
+        setIsValidEmailState(true);
+        setEmailError("");
+      } else {
+        setIsValidEmailState(false);
+        if (emailValue.includes("@")) {
+          setEmailError("Please enter a valid email address");
+        }
+      }
+    } else {
+      setIsValidEmailState(false);
+    }
+  };
+
+  // Handle waitlist submission
+  const handleWaitlistSubmit = async () => {
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      return;
+    }
+
+    if (!isValidEmailState) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
+    setEmailError("");
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      console.log("Email submitted:", email);
+      setSubmitSuccess(true);
+
+      // Reset form after success
+      setTimeout(() => {
+        setIsWaitlistOpen(false);
+        setEmail("");
+        setSubmitSuccess(false);
+        setIsLoading(false);
+        setIsValidEmailState(false);
+      }, 2000);
+    } catch (error) {
+      if (error instanceof Error) {
+        setEmailError(error.message);
+      }
+      setEmailError("Something went wrong. Please try again.");
+      setIsLoading(false);
+    }
+  };
 
   const stablecoins = [
     { image: usdc, position: "top-20 left-20", delay: "0s" },
@@ -136,20 +214,22 @@ const Hero = () => {
             <div className="relative flex justify-center items-center">
               {/* Card flip logic */}
               <div
-                className={`relative w-96 h-52 sm:h-56 rounded-2xl cursor-pointer transition-transform duration-700 ${
-                  isCardFlipped ? "rotate-y-180" : ""
-                }`}
+                className={`relative w-96 h-52 sm:h-56 rounded-2xl cursor-pointer transition-transform duration-700`}
                 style={{
                   perspective: "1200px",
                   transformStyle: "preserve-3d",
+                  transform: isCardFlipped
+                    ? "rotateY(180deg)"
+                    : "rotateY(0deg)",
                 }}
                 onMouseEnter={() => setIsCardFlipped(true)}
                 onMouseLeave={() => setIsCardFlipped(false)}
               >
                 {/* Card Front */}
                 <div
-                  className="absolute inset-0 w-full h-full rounded-2xl backface-hidden overflow-hidden z-20"
+                  className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden z-20"
                   style={{
+                    backfaceVisibility: "hidden",
                     boxShadow:
                       "0 2px 28px 0 rgba(22, 168, 255, 0.14), 0 1.5px 0 0 #1C1C1C",
                     background:
@@ -196,8 +276,10 @@ const Hero = () => {
 
                 {/* Card Back */}
                 <div
-                  className="absolute inset-0 w-full h-full rounded-2xl backface-hidden rotate-y-180 overflow-hidden z-10"
+                  className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden z-10"
                   style={{
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)",
                     boxShadow:
                       "0 2px 28px 0 rgba(44, 169, 255, 0.12), 0 1.5px 0 0 #1C1C1C",
                     background:
@@ -287,38 +369,82 @@ const Hero = () => {
           <div className="fixed inset-0 bg-jet-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6">
             <div className="bg-graphite/90 backdrop-blur-lg rounded-2xl border border-electric-teal/30 p-8 max-w-md w-full transform animate-in slide-in-from-bottom-5 duration-300 relative">
               <button
-                onClick={() => setIsWaitlistOpen(false)}
+                onClick={() => {
+                  setIsWaitlistOpen(false);
+                  setEmail("");
+                  setEmailError("");
+                  setSubmitSuccess(false);
+                  setIsValidEmailState(false);
+                }}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-text-muted hover:text-text-primary transition-colors duration-200"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-text-primary mb-4">
-                  Join Waitlist
-                </h3>
-                <p className="text-text-muted mb-6">
-                  Enter your email to be the first to know when we launch.
-                </p>
+                {submitSuccess ? (
+                  <>
+                    <div className="w-16 h-16 bg-gradient-to-r from-electric-teal to-neon-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="w-8 h-8 text-text-primary" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-text-primary mb-4">
+                      You're In!
+                    </h3>
+                    <p className="text-text-muted">
+                      Thanks for joining our waitlist. We'll notify you when we
+                      launch.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-2xl font-bold text-text-primary mb-4">
+                      Join Waitlist
+                    </h3>
+                    <p className="text-text-muted mb-6">
+                      Enter your email to be the first to know when we launch.
+                    </p>
 
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-3 rounded-xl bg-jet-black text-text-primary border border-electric-teal/30 focus:outline-none focus:ring-2 focus:ring-electric-teal mb-4"
-                />
+                    <div className="mb-4">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        placeholder="Enter your email"
+                        className={`w-full px-4 py-3 rounded-xl bg-jet-black text-text-primary border ${
+                          emailError
+                            ? "border-red-500 focus:ring-red-500"
+                            : isValidEmailState
+                            ? "border-electric-teal focus:ring-electric-teal"
+                            : "border-electric-teal/30 focus:ring-electric-teal"
+                        } focus:outline-none focus:ring-2 transition-colors`}
+                        disabled={isLoading}
+                      />
+                      {emailError && (
+                        <p className="text-red-400 text-sm mt-2 text-left">
+                          {emailError}
+                        </p>
+                      )}
+                      {/* {isValidEmailState && !emailError && (
+                        <p className="text-electric-teal text-sm mt-2 text-left">Email looks good!</p>
+                      )} */}
+                    </div>
 
-                <button
-                  onClick={() => {
-                    console.log("Email submitted:", email);
-                    setIsWaitlistOpen(false);
-                    setEmail("");
-                  }}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300"
-                >
-                  Join Waitlist
-                </button>
+                    <button
+                      onClick={handleWaitlistSubmit}
+                      disabled={isLoading || !email.trim()}
+                      className="w-full px-6 py-3 bg-gradient-to-r from-neon-blue to-electric-teal text-text-primary font-semibold rounded-xl hover:shadow-lg hover:shadow-neon-blue/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Joining...
+                        </>
+                      ) : (
+                        "Join Waitlist"
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
